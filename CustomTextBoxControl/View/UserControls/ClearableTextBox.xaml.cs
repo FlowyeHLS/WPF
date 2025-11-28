@@ -38,11 +38,36 @@ namespace CustomTextBoxControl.View.UserControls
             tbPlaceHolder.Visibility = txtInput.Text == "" ? Visibility.Visible : Visibility.Collapsed;
             //if (txtInput.Text.Length > 16) this.Focus();
             //if(txtInput.Text.Length > 16)txtInput.Text = txtInput.Text.Substring(0, 16);
+            
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             txtInput.Text = "";
+        }
+
+        private void txtInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Panel parent = this.Parent as Panel;
+                if (parent != null)
+                {
+                    bool found = false;
+                    foreach (UIElement child in parent.Children)
+                    {
+                        if (found && child is ClearableTextBox)
+                        {
+                            ClearableTextBox nextTextBox = (ClearableTextBox)child;
+                            nextTextBox.txtInput.Focus();
+                            break;
+                        }
+                        if (child == this)
+                            found = true;
+                    }
+                }
+                e.Handled = true;
+            }
         }
     }
 }

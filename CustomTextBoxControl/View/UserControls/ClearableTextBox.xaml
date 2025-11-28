@@ -9,7 +9,9 @@
              FontSize="22">
     <Grid Background="AliceBlue">
         <TextBox Name="txtInput" VerticalContentAlignment="Center" Background="Transparent"
-                 TextChanged="txtInput_TextChanged"/>
+                 TextChanged="txtInput_TextChanged"
+                 KeyDown="txtInput_KeyDown"
+                 />
         <TextBlock Name="tbPlaceHolder" Text="Placeholder" 
                    FontWeight="Light" Foreground="DarkGray" 
                    HorizontalAlignment="Center" VerticalAlignment="Center"
