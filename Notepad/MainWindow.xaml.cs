@@ -25,9 +25,14 @@ namespace Notepad
     {
         private string currentFileName = string.Empty;
 
+        public ICommand SaveCommand { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            SaveCommand = ApplicationCommands.Save;
+            DataContext = this;
         }
 
         private void New_Click(object sender, RoutedEventArgs e)
@@ -57,7 +62,7 @@ namespace Notepad
             }
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(currentFileName))
             {
@@ -79,7 +84,6 @@ namespace Notepad
             {
                 IOFile.WriteAllText(currentFileName, txtEditor.Text);
                 Title = "Блокнот - " + IOPath.GetFileName(currentFileName);
-                MessageBox.Show("Файл сохранен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
